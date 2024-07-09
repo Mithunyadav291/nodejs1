@@ -1,7 +1,13 @@
 const express = require("express")
 const connectToDb = require("./database/databaseConnection")
+const Blog = require("./model/blogModel")
+
 const app = express()
-const Blog = require("./model/blogmodel.js")
+// const multer = require("./middleware/multerConfig").multer
+// const storage = require("./middleware/multerConfig").storage
+
+const { multer, storage } = require('./middleware/multerConfig')
+const upload = multer({ storage: storage })
 
 connectToDb()
 
@@ -10,9 +16,9 @@ app.use(express.urlencoded({ extended: true }))
 
 app.set('view engine', 'ejs')
 
-app.get("/", (req, res) => {
-
-    res.send("<h1>huhu, this is home page</h1>")
+app.get("/", async (req, res) => {
+    const blogs = await Blog.find() // always returns arrray 
+    res.render("./blog/home", { blogs })
 })
 
 app.get("/about", (req, res) => {
@@ -20,22 +26,29 @@ app.get("/about", (req, res) => {
     res.render("about.ejs", { name })
 })
 app.get("/createblog", (req, res) => {
-
-    res.render("createblog.ejs")
+    res.render("./blog/createBlog")
 })
 
-app.post("/createblog", async (req, res) => {
+app.post("/createblog", upload.single('image'), async (req, res) => {
+    // const title = req.body.title 
+    // const subtitle = req.body.subtitle 
+    // const description  = req.body.description 
+    const fileName = req.file.filename
     const { title, subtitle, description } = req.body
     console.log(title, subtitle, description)
+
     await Blog.create({
         title,
         subtitle,
-        description
+        description,
+        image: fileName
     })
+
     res.send("Blog created successfully")
 })
 
+app.use(express.static("./storage"))
 
 app.listen(3000, () => {
-    console.log("Nodejs project has started at port" + 3000)
+    console.log("Nodejs project has started at port  " + 3000)
 })
