@@ -21,13 +21,33 @@ app.get("/", async (req, res) => {
     res.render("./blog/home", { blogs })
 })
 
-app.get("/about", (req, res) => {
-    const name = "Mithun Yadav"
-    res.render("about.ejs", { name })
-})
+// app.get("/about", (req, res) => {
+//     const name = "Mithun Yadav"
+//     res.render("about.ejs", { name })
+// })
 app.get("/createblog", (req, res) => {
     res.render("./blog/createBlog")
 })
+app.get("/blog/:id", async (req, res) => {
+    const id = req.params.id;
+    const blog = await Blog.findById(id)
+
+    res.render("./blog/newblog", { blog: blog })
+})
+
+app.get("/deleteblog/:id", async (req, res) => {
+    const id = req.params.id;
+    await Blog.findByIdAndDelete(id)
+    res.redirect("/")
+})
+
+app.get("/editblog/:id", async (req, res) => {
+    const id = req.params.id;
+    res.render("./blog/editblog")
+})
+
+
+
 
 app.post("/createblog", upload.single('image'), async (req, res) => {
     // const title = req.body.title 
@@ -35,7 +55,7 @@ app.post("/createblog", upload.single('image'), async (req, res) => {
     // const description  = req.body.description 
     const fileName = req.file.filename
     const { title, subtitle, description } = req.body
-    console.log(title, subtitle, description)
+    console.log(title, subtitle, description, fileName)
 
     await Blog.create({
         title,
@@ -46,6 +66,7 @@ app.post("/createblog", upload.single('image'), async (req, res) => {
 
     res.send("Blog created successfully")
 })
+
 
 app.use(express.static("./storage"))
 

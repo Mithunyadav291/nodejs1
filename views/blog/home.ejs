@@ -69,11 +69,12 @@
 
     <div style="display: flex;flex-wrap: wrap;">
         <!-- Cards Section -->
-        <h1>Helloooooo</h1>
+        <h1>Home page</h1>
         <% blogs.forEach((blog)=>{ %>
             <div class="card">
                 <img src="<%- blog.image %>" alt="Card Image">
                 <div class="title"><%- blog.title %></div>
+                <a href="/blog/<%- blog._id %>">see more</a>
             </div>
             <% }) %>
 

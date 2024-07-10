@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webpage with Navbar and Content</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav {
+            background-color: #333;
+            color: white;
+            padding: 1em 0;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .content {
+            text-align: center;
+            margin: 20px;
+        }
+
+        .content img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .content h1 {
+            font-size: 2.5em;
+            margin: 10px 0;
+        }
+
+        .content h2 {
+            font-size: 2em;
+            color: #666;
+            margin: 10px 0;
+        }
+
+        .content p {
+            font-size: 1.2em;
+            color: #333;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+    <div class="content">
+        <img src="/<%- blog.image%>" alt="Sample Image">
+        <h1><%- blog.title %></h1>
+        <h2>Subtitle</h2>
+        <p>This is a description of the content. It provides more details about the topic discussed in the title and
+            subtitle.</p>
+
+        <button><a href="/deleteblog/<%- blog._id%>"">Delete Me</a></button>
+        <button><a href=" /editblog/<%- blog._id%>"">Edit Me</a></button>
+    </div>
+
+</body>
+
+</html>
