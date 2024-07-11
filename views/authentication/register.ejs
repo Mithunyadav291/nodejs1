@@ -77,6 +77,23 @@
         .create-blog-form button:hover {
             background-color: #45a049;
         }
+
+        .password-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .password-container input[type="password"] {
+            padding-right: 40px;
+        }
+
+        .password-container .toggle-password {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -91,24 +108,35 @@
 
     <!-- Create Blog Form -->
     <div class="create-blog-form">
-        <h2>Edit Blog</h2>
-        <form action="/editblog/<%- blog._id %>" method="post">
-            <label for="title">Title:</label>
-            <input type="text" id="title" name="title" value="<%-blog.title %>" required>
+        <h2>Register</h2>
+        <form action="/register" method="post">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
 
-            <label for="subtitle">Subtitle:</label>
-            <input type="text" id="subtitle" name="subtitle" value="<%-blog.subtitle %>" required>
+            <label for="email">Email:</label>
+            <input type="text" id="email" name="email" required>
 
-            <label for="description">Description:</label>
-            <textarea id="description" name="description" rows="4" required><%-blog.description %></textarea>
+            <label for="password">Password:</label>
+            <div class="password-container">
+                <input type="password" id="password" name="password" required>
+                <span class="toggle-password">👁️</span>
+            </div>
 
-            <label for="image">Image:</label>
-            <input type="file" id="image" name="image" accept="image/*" required>
-
-            <button type="submit">Edit Blog</button>
+            <button type="submit">Register</button>
         </form>
     </div>
 
+    <script>
+        const togglePassword = document.querySelector('.toggle-password');
+        const passwordField = document.getElementById('password');
+
+        togglePassword.addEventListener('click', function () {
+            const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordField.setAttribute('type', type);
+            // Toggle the eye icon
+            this.textContent = type === 'password' ? '👁️' : '🙈';
+        });
+    </script>
 </body>
 
 </html>
