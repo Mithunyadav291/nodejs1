@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken")
 const User = require("../model/UserModel.js")
+const { findById } = require("../model/blogModel");
 const promisify = require("util").promisify
 
 const isAuthenticated = (req, res, next) => {

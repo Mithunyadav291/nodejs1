@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Search Results</title>
+</head>
+
+<body>
+    <form action="/search" method="post">
+        <input type="text" name="search" placeholder="Search for blogs..." value="<%= search %>">
+        <button type="submit">Search</button>
+    </form>
+
+    <% if (Blogs && Blogs.length> 0) { %>
+        <% Blogs.forEach((blog)=> { %>
+            <h2>
+                <%= blog.title %>
+            </h2>
+            <p>
+                <%= blog.content ? blog.content.substring(0, 100) + '...' : '' %>
+            </p>
+            <a href="/blog/<%= blog._id %>">Read more</a>
+            <% }) %>
+                <% } else { %>
+                    <p>No blogs found</p>
+                    <% } %>
+</body>
+
+</html>
